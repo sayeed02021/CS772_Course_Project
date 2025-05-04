@@ -4,7 +4,7 @@ Codes for the course project which is based on the paper:  Dream the Impossible:
 
 
 ## Instructions for running
-- Currently much of the parameters are hard coded so we that the parameters and the file names cannot be changed
+- Currently much of the parameters are hard coded so the value of the parameters and the file names cannot be changed... 
 - Go to scripts folder and run python3 pre_train_cifar.py
 - Next if you want to evaluate your model run python3 evaluate.py
 - To visualize TSNE plot run python3 t_SNE.py
