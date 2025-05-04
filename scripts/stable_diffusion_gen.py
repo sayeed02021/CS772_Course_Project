@@ -1,5 +1,5 @@
 import torch
-from diffusers import StableDiffusionPipeline
+from diffusers import StableDiffusionPipeline, DDIMScheduler
 from resent_model import ResNet_Model
 import torch.nn.functional as F
 
@@ -18,7 +18,7 @@ elif torch.backends.mps.is_available():
 else:
     device = torch.device('mps')
 generator = torch.Generator(device=device).manual_seed(42)
-pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float32,safety_checker=None)
+pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float32)
 pipe.scheduler = DDIMScheduler.from_config(pipe.scheduler.config)
 pipe.scheduler.eta = 0.0
 pipe = pipe.to(device)
@@ -193,8 +193,7 @@ for label in class_labels:
     b = pipe(prompt_embeds=final_text_embeddings,
             height=512, width=512,
             num_inference_steps=50, 
-             generator=generator,
-             safety_checker=False).images
+             generator=generator).images
     
     save_path = f'Class_{label}_images'
     os.makedirs(save_path, exist_ok=True)
